@@ -21,14 +21,14 @@ class NavigationUnitImpl @Inject constructor() : NavigationUnit {
 
     override fun navigate(
         pageResId: Int,
-        navArgs: Bundle?,
+        navArgs: Bundle?
     ) {
         val navOptionsBuilder = getDefaultNavOptions()
         navController?.navigate(pageResId, navArgs, navOptionsBuilder.build())
     }
 
     override fun navigate(
-        directions: NavDirections,
+        directions: NavDirections
     ) {
         val navOptionsBuilder = getDefaultNavOptions()
         navController?.navigate(directions, navOptionsBuilder.build())
