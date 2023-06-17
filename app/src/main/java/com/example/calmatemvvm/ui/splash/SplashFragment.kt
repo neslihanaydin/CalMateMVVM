@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.calmatemvvm.R
 import com.example.calmatemvvm.common.viewScope
 import com.example.calmatemvvm.databinding.FragmentSplashBinding
@@ -28,9 +29,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         super.onViewCreated(view, savedInstanceState)
         viewScope.launch {
             delay(2000)
-            appViewModel.appExit()
+            appViewModel.navigationUnit.navigate(
+                SplashFragmentDirections.actionSplashFragmentToWelcomeFragment()
+            )
         }
     }
-
-
 }
