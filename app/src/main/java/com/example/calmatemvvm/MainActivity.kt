@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.calmatemvvm.app.AppViewModel
+import com.example.calmatemvvm.common.injectViewModel
 import com.example.calmatemvvm.dagger.CoreModule
 import com.example.calmatemvvm.dagger.DaggerAppComponent
 import com.example.calmatemvvm.dagger.RoomModule
@@ -21,15 +22,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val appComponent = DaggerAppComponent.builder()
+            .coreModule(CoreModule(this))
             .build()
         val appViewModel = appComponent.getAppViewModel().also {
             this.appViewModel = it
         }
 
+        injectViewModel(appViewModel, viewModelStore)
+
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_container) as NavHostFragment
         navController = navHostFragment.navController
 
         appViewModel.navigationUnit.setNavController(navController)
+        appViewModel.isFinish.observe(this) {
+            if(it){
+                finishAffinity()
+            }
+        }
 
     }
 }
