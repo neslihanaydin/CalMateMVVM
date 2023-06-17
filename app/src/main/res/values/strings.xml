@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">CalMateMVVM</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">WELCOME</string>
+    <string name="join_msg">Join Us Today for a Healthier You</string>
+    <string name="str_calmate_info">Discover the seamless way to manage your physical and mental well-being with CalMate.</string>
+    <string name="get_started">Get Started</string>
+    <string name="txt_account">Already have an account?</string>
+    <string name="sign_in">Sign In</string>
 </resources>
