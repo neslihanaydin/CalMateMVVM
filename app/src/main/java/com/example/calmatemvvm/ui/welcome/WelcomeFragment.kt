@@ -22,7 +22,9 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>() {
             // TODO: Navigate associated page
         }
         binding.textSignIn.setOnClickListener {
-            // TODO: Navigate associated page
+            appViewModel.navigationUnit.navigate(
+                WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment()
+            )
         }
     }
 
