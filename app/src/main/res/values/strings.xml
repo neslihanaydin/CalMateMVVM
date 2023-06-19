@@ -11,4 +11,11 @@
     <string name="login">Login</string>
     <string name="txt_username">Username</string>
     <string name="txt_password">Password</string>
+    <string name="register">Register</string>
+    <string name="full_name">Full Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="accept">Accept</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="sign_up">Sign Up</string>
+    <string name="remember_me">Remember me</string>
 </resources>
