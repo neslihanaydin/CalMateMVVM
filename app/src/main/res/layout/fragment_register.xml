@@ -36,6 +36,18 @@
                 android:textColor="@color/purple_app"/>
 
             <EditText
+                android:id="@+id/fullName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/custom_edittext"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:paddingStart="20dp"
+                android:hint="@string/full_name"
+                android:textColor="@color/black"
+                android:drawablePadding="8dp"/>
+
+            <EditText
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -47,17 +59,7 @@
                 android:textColor="@color/black"
                 android:drawablePadding="8dp"/>
 
-            <EditText
-                android:id="@+id/fullName"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/custom_edittext"
-                android:layout_marginTop="20dp"
-                android:padding="8dp"
-                android:paddingStart="20dp"
-                android:hint="@string/full_name"
-                android:textColor="@color/black"
-                android:drawablePadding="8dp"/>
+
 
             <EditText
                 android:id="@+id/password"

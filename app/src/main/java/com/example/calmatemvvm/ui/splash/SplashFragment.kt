@@ -1,22 +1,22 @@
 package com.example.calmatemvvm.ui.splash
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import com.example.calmatemvvm.R
+import com.example.calmatemvvm.common.viewModels
 import com.example.calmatemvvm.common.viewScope
 import com.example.calmatemvvm.databinding.FragmentSplashBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
 class SplashFragment : BaseFragment<FragmentSplashBinding>() {
+
+    override val viewModel by viewModels {
+        SplashViewModel()
+    }
     override fun onCreateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,

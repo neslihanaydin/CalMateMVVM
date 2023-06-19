@@ -16,6 +16,8 @@ abstract class BaseFragment<T : ViewBinding>: Fragment() {
 
     protected lateinit var binding: T
 
+    protected abstract val viewModel: BaseViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
