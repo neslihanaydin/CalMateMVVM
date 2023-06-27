@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.calmatemvvm.ui.register.RegisterViewModel" />
+    </data>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -45,6 +52,8 @@
                 app:helperTextEnabled="true"
                 app:helperText="Required"
                 app:errorEnabled="true"
+                errorText="@{viewModel.formValidationStatus.fullNameHasError.errorText}"
+                isValid="@{viewModel.formValidationStatus.fullNameHasError.isActive}"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fullName"
@@ -62,6 +71,8 @@
                 app:helperTextEnabled="true"
                 app:helperText="Required"
                 app:errorEnabled="true"
+                errorText="@{viewModel.formValidationStatus.userNameHasError.errorText}"
+                isValid="@{viewModel.formValidationStatus.userNameHasError.isActive}"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/username"
@@ -77,6 +88,8 @@
                 app:helperTextEnabled="true"
                 app:helperText="Required"
                 app:errorEnabled="true"
+                errorText="@{viewModel.formValidationStatus.passwordHasError.errorText}"
+                isValid="@{viewModel.formValidationStatus.passwordHasError.isActive}"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:endIconMode="password_toggle">
                 <com.google.android.material.textfield.TextInputEditText
@@ -93,6 +106,8 @@
                 android:hint="@string/confirm_password"
                 app:helperText="Required"
                 app:errorEnabled="true"
+                errorText="@{viewModel.formValidationStatus.passwordConfirmationHasError.errorText}"
+                isValid="@{viewModel.formValidationStatus.passwordConfirmationHasError.isActive}"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:endIconMode="password_toggle">
                 <com.google.android.material.textfield.TextInputEditText
@@ -109,7 +124,7 @@
                 <CheckBox
                     android:id="@+id/acceptCheck"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -164,3 +179,4 @@
 
     </androidx.cardview.widget.CardView>
 </LinearLayout>
+</layout>

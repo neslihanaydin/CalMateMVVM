@@ -3,12 +3,11 @@ package com.example.calmatemvvm.ui.register
 import android.util.Patterns
 
 class RegisterValidator {
-
-    enum class RegisterInputTypes {
-        USERNAME,
-        FULL_NAME,
-        PASSWORD,
-        PASSWORD_CONFIRMATION
+    enum class RegisterInputTypes(val errorText : String) {
+        USERNAME(INVALID_USERNAME),
+        FULL_NAME(INVALID_FULL_NAME),
+        PASSWORD(INVALID_PASSWORD),
+        PASSWORD_CONFIRMATION(NOT_MATCHED_PASSWORD),
     }
 
     fun validateField(input: String, type: RegisterInputTypes) : Boolean {
@@ -18,8 +17,7 @@ class RegisterValidator {
                         Patterns.EMAIL_ADDRESS.matcher(input).matches()
             }
             RegisterInputTypes.FULL_NAME -> {
-               "^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}$".toRegex().matches(input)
-               /*
+
                val splittedInput = input.split(' ')
                 if (splittedInput.size <= 1){
                     false
@@ -31,8 +29,6 @@ class RegisterValidator {
                     }
                     true
                 }
-
-                */
             }
             RegisterInputTypes.PASSWORD -> {
                 "^(?=.*\\d)[a-zA-Z\\d]{4,}$".toRegex().matches(input)
@@ -41,5 +37,12 @@ class RegisterValidator {
                 "^(?=.*\\d)[a-zA-Z\\d]{4,}$".toRegex().matches(input)
             }
         }
+    }
+
+    companion object {
+        private const val INVALID_USERNAME = "Invalid Email"
+        private const val INVALID_FULL_NAME = "Invalid Name"
+        private const val INVALID_PASSWORD = "Invalid Password"
+        private const val NOT_MATCHED_PASSWORD = "Passwords do not match"
     }
 }

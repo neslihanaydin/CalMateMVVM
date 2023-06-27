@@ -1,6 +1,9 @@
 package com.example.calmatemvvm.ui.register
 
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +18,18 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     override val viewModel by viewModels {
         RegisterViewModel()
     }
+
+    // timer
+    private val handler = Handler(Looper.getMainLooper())
+
     override fun onCreateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): FragmentRegisterBinding {
-        return FragmentRegisterBinding.inflate(inflater)
+        return FragmentRegisterBinding.inflate(inflater).also {
+            it.viewModel = viewModel
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,6 +40,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             appViewModel.navigationUnit.navigate(
                 RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
             )
+        }
+        binding.registerButton.setOnClickListener {
+            val isTermChecked = binding.acceptCheck.isChecked
+            if(viewModel.formValidationStatus.validatePage(isTermChecked)) {
+                // TODO: Register user, Navigate next page
+            }
         }
     }
 
@@ -49,7 +64,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         binding.fullName.doOnLayout {
             binding.fullName.apply {
                 doAfterTextChanged {
-                    viewModel.validate(it.toString(), RegisterValidator.RegisterInputTypes.FULL_NAME)
+                    handler.postDelayed({
+                        viewModel.validate(it.toString(), RegisterValidator.RegisterInputTypes.FULL_NAME)
+                    }, INPUT_DELAY)
                 }
             }
         }
@@ -71,8 +88,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 }
             }
         }
-
     }
 
-
+    companion object{
+        private const val INPUT_DELAY = 500L
+    }
 }
