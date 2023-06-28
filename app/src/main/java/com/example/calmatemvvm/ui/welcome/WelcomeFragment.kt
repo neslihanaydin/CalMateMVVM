@@ -33,6 +33,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>() {
                 WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment()
             )
         }
+
     }
 
 }

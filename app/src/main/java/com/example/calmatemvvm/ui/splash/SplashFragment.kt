@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.calmatemvvm.R
 import com.example.calmatemvvm.common.viewModels
 import com.example.calmatemvvm.common.viewScope
 import com.example.calmatemvvm.databinding.FragmentSplashBinding
@@ -22,6 +23,10 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): FragmentSplashBinding {
+        // Bottom Navigation Bar Invisible
+        val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView?.visibility = View.GONE
+        // bottomNavigationView?.visibility = View.VISIBLE
         return FragmentSplashBinding.inflate(inflater)
     }
 
