@@ -5,15 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.calmatemvvm.R
+import com.example.calmatemvvm.common.viewModels
 import com.example.calmatemvvm.common.viewScope
 import com.example.calmatemvvm.databinding.FragmentSplashBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
 class SplashFragment : BaseFragment<FragmentSplashBinding>() {
+
+    override val viewModel by viewModels {
+        SplashViewModel()
+    }
     override fun onCreateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,

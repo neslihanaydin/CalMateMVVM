@@ -1,7 +1,7 @@
 package com.example.calmatemvvm.ui.login
 
-import androidx.lifecycle.ViewModel
+import com.example.calmatemvvm.ui.common.BaseViewModel
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel : BaseViewModel() {
 
 }
