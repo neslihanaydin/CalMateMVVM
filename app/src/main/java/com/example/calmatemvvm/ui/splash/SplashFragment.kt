@@ -1,17 +1,14 @@
 package com.example.calmatemvvm.ui.splash
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.example.calmatemvvm.R
 import com.example.calmatemvvm.common.viewScope
 import com.example.calmatemvvm.databinding.FragmentSplashBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
-import kotlinx.coroutines.CoroutineScope
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -22,6 +19,10 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): FragmentSplashBinding {
+        // Bottom Navigation Bar Invisible
+        val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView?.visibility = View.GONE
+        // bottomNavigationView?.visibility = View.VISIBLE
         return FragmentSplashBinding.inflate(inflater)
     }
 
