@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.calmatemvvm.common.viewModels
 import com.example.calmatemvvm.databinding.FragmentLoginBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
+
+    override val viewModel by viewModels {
+        LoginViewModel()
+    }
     override fun onCreateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
