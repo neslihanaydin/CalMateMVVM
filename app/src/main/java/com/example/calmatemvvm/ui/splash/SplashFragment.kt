@@ -9,6 +9,7 @@ import com.example.calmatemvvm.common.viewModels
 import com.example.calmatemvvm.common.viewScope
 import com.example.calmatemvvm.databinding.FragmentSplashBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -26,7 +27,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         // Bottom Navigation Bar Invisible
         val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView?.visibility = View.GONE
-        // bottomNavigationView?.visibility = View.VISIBLE
+
         return FragmentSplashBinding.inflate(inflater)
     }
 
@@ -35,7 +36,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         viewScope.launch {
             delay(2000)
             appViewModel.navigationUnit.navigate(
-                SplashFragmentDirections.actionSplashFragmentToWelcomeFragment()
+                SplashFragmentDirections.actionSplashFragmentToHomeFragment()
             )
         }
     }
