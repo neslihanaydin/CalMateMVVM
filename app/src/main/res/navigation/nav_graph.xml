@@ -33,11 +33,7 @@
         android:id="@+id/loginFragment"
         android:name="com.example.calmatemvvm.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.calmatemvvm.ui.register.RegisterFragment"
@@ -46,13 +42,30 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_registerFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.calmatemvvm.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_fitnessFragment"
+            app:destination="@id/fitnessFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_setGoalFragment"
+            app:destination="@id/setGoalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fitnessFragment"
+        android:name="com.example.calmatemvvm.ui.fitness.FitnessFragment"
+        android:label="fragment_fitness"
+        tools:layout="@layout/fragment_fitness" />
+    <fragment
+        android:id="@+id/setGoalFragment"
+        android:name="com.example.calmatemvvm.ui.setgoal.SetGoalFragment"
+        android:label="SetGoalFragment" >
+        <action
+            android:id="@+id/action_setGoalFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

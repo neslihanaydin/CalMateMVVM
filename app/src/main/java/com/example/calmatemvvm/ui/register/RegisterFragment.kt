@@ -1,6 +1,5 @@
 package com.example.calmatemvvm.ui.register
 
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
