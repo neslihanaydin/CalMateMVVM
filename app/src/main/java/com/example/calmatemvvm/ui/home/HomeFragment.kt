@@ -45,17 +45,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         videoView.setVideoPath(videoPath)
         videoView.start()
 
-       /*
-        val imgSad: ImageView = binding.cardViewMood.findViewById(R.id.imgSad)
-        val imgContent: ImageView = binding.cardViewMood.findViewById(R.id.imgContent)
-        val imgCalm: ImageView = binding.cardViewMood.findViewById(R.id.imgCalm)
-        val imgMood: ImageView = binding.cardViewMood.findViewById(R.id.imgMood)
-        val imgExcited: ImageView = binding.cardViewMood.findViewById(R.id.imgExcited)
-        defaultScale = imgSad.scaleX
-*/
+        binding.btnDailyGoal.setOnClickListener{
+            appViewModel.navigationUnit.navigate(
+                HomeFragmentDirections.actionHomeFragmentToFitnessFragment()
+            )
+        }
 
-
-
+        binding.cardViewStep.setOnClickListener{
+            appViewModel.navigationUnit.navigate(
+                HomeFragmentDirections.actionHomeFragmentToSetGoalFragment()
+            )
+        }
 
     }
 
