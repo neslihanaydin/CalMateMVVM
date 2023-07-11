@@ -54,6 +54,12 @@
         <action
             android:id="@+id/action_homeFragment_to_setGoalFragment"
             app:destination="@id/setGoalFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_meditationFragment"
+            app:destination="@id/meditationFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_meditationListFragment"
+            app:destination="@id/meditationListFragment" />
     </fragment>
     <fragment
         android:id="@+id/fitnessFragment"
@@ -68,4 +74,19 @@
             android:id="@+id/action_setGoalFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/meditationFragment"
+        android:name="com.example.calmatemvvm.ui.meditation.MeditationFragment"
+        android:label="MeditationFragment" >
+        <argument
+            android:name="imgSource"
+            app:argType="integer" />
+        <argument
+            android:name="audioSource"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/meditationListFragment"
+        android:name="com.example.calmatemvvm.ui.meditationlist.MeditationListFragment"
+        android:label="MeditationListFragment" />
 </navigation>

@@ -3,7 +3,6 @@ package com.example.calmatemvvm.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -12,8 +11,8 @@ import com.example.calmatemvvm.R
 import com.example.calmatemvvm.databinding.FragmentHomeBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
 import com.example.calmatemvvm.common.viewModels
+import com.example.calmatemvvm.ui.meditationlist.recommendedcardview.CardView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
@@ -41,22 +40,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         val videoView: VideoView = binding.cardViewTop.findViewById(R.id.videoViewCard)
-        val videoPath = "android.resource://" + requireContext().packageName + "/" + R.raw.calmate_intro
+        val videoPath =
+            "android.resource://" + requireContext().packageName + "/" + R.raw.calmate_intro
         videoView.setVideoPath(videoPath)
         videoView.start()
 
-        binding.btnDailyGoal.setOnClickListener{
+        binding.btnDailyGoal.setOnClickListener {
             appViewModel.navigationUnit.navigate(
                 HomeFragmentDirections.actionHomeFragmentToFitnessFragment()
             )
         }
 
-        binding.cardViewStep.setOnClickListener{
+        binding.cardViewStep.setOnClickListener {
             appViewModel.navigationUnit.navigate(
                 HomeFragmentDirections.actionHomeFragmentToSetGoalFragment()
             )
         }
 
+        val childFragment = CardView()
+        childFragmentManager.beginTransaction()
+            .replace(R.id.card_view_meditations, childFragment)
+            .commit()
     }
 
 

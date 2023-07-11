@@ -180,17 +180,11 @@
         </HorizontalScrollView>
 
 
-        <FrameLayout
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/card_view_meditations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/cardview_rl_top_radius_bg">
-
-            <include layout="@layout/home_page_meditations" />
-        </FrameLayout>
+            android:layout_marginTop="16dp" />
     </LinearLayout>
-
 </ScrollView>
 </layout>
