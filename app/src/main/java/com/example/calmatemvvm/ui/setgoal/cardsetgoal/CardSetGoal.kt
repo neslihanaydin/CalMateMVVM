@@ -1,37 +1,42 @@
-package com.example.calmatemvvm.ui.fitness
+package com.example.calmatemvvm.ui.setgoal.cardsetgoal
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.calmatemvvm.R
-import com.example.calmatemvvm.common.viewModels
-import com.example.calmatemvvm.databinding.FragmentFitnessBinding
+import com.example.calmatemvvm.databinding.DailyStepSetBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
+import com.example.calmatemvvm.common.viewModels
 
-class FitnessFragment : BaseFragment<FragmentFitnessBinding>() {
+
+class CardSetGoal : BaseFragment<DailyStepSetBinding>() {
 
     override val viewModel by viewModels {
-        FitnessViewModel()
+        CardSetGoalViewModel()
     }
-
     override fun onCreateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): FragmentFitnessBinding {
-        return FragmentFitnessBinding.inflate(inflater).also {
-            it.viewModel = viewModel
-        }
+    ): DailyStepSetBinding {
+        return DailyStepSetBinding.inflate(inflater)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnSetDailyGoal.setOnClickListener{
-            appViewModel.navigationUnit.popAndNavigate(
+        binding.addAGoalButton.setOnClickListener{
+            System.out.println("Girdim")
+            appViewModel.navigationUnit.navigate(
                 R.id.setGoalFragment,
                 null
             )
         }
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+
 }

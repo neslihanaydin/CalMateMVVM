@@ -153,17 +153,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <androidx.cardview.widget.CardView
+                <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/card_view_step"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/card_margin"
-                    app:cardCornerRadius="@dimen/card_corner_radius"
-                    app:cardElevation="2dp">
-
-                    <include layout="@layout/daily_step_set" />
-                </androidx.cardview.widget.CardView>
+                    android:layout_margin="@dimen/card_margin" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_view_reminder"

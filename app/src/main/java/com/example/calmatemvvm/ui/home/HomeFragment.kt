@@ -12,6 +12,7 @@ import com.example.calmatemvvm.databinding.FragmentHomeBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
 import com.example.calmatemvvm.common.viewModels
 import com.example.calmatemvvm.ui.meditationlist.recommendedcardview.CardView
+import com.example.calmatemvvm.ui.setgoal.cardsetgoal.CardSetGoal
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -51,15 +52,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             )
         }
 
-        binding.cardViewStep.setOnClickListener {
-            appViewModel.navigationUnit.navigate(
-                HomeFragmentDirections.actionHomeFragmentToSetGoalFragment()
-            )
-        }
 
         val childFragment = CardView()
         childFragmentManager.beginTransaction()
             .replace(R.id.card_view_meditations, childFragment)
+            .commit()
+
+
+        val childSetGoalFragment = CardSetGoal()
+        childFragmentManager.beginTransaction()
+            .replace(R.id.card_view_step, childSetGoalFragment)
             .commit()
     }
 
