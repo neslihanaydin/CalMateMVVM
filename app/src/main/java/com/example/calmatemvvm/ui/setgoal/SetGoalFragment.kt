@@ -28,9 +28,7 @@ class SetGoalFragment : BaseFragment<FragmentSetGoalBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnCancel.setOnClickListener {
-            appViewModel.navigationUnit.navigate(
-                SetGoalFragmentDirections.actionSetGoalFragmentToHomeFragment()
-            )
+            appViewModel.navigationUnit.navigateBack()
         }
     }
 
