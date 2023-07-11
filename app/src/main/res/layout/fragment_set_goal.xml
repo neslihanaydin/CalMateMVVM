@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/purple_700" />
 
@@ -31,7 +31,7 @@
                 android:id="@+id/tvStepGoal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Your Daily Move Goal"
+                android:text="@string/your_daily_move_goal"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textStyle="bold" />
@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:text="Set a goal based on how active you are, or how active you'd like to be, each day."
+                android:text="@string/set_a_goal_based_on_how_active_you_are_or_how_active_you_d_like_to_be_each_day"
                 android:textAlignment="center"
                 android:textAppearance="?android:textAppearanceMedium" />
 
@@ -56,7 +56,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Decrease"
+                    android:contentDescription="@string/decrease"
                     android:src="@drawable/ic_remove" />
 
                 <TextView
@@ -66,9 +66,9 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:gravity="center"
-                    android:text="250"
+                    android:text="@string/_250"
                     android:textAppearance="?android:textAppearanceLarge"
-                    android:textSize="70dp"
+                    android:textSize="70sp"
                     android:textStyle="bold" />
 
                 <ImageButton
@@ -76,7 +76,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Increase"
+                    android:contentDescription="@string/increase"
                     android:src="@drawable/ic_add" />
             </LinearLayout>
 
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="150dp"
-                android:text="Change Move Goal" />
+                android:text="@string/change_move_goal" />
 
         </LinearLayout>
 

@@ -37,7 +37,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="-10dp"
             android:layout_marginBottom="10dp"
-            android:text="How are you feeling right now?" />
+            android:text="@string/how_are_you_feeling_right_now" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                     android:id="@+id/txtMedications"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Medications"
+                    android:text="@string/medications"
                     android:textAlignment="center"
                     android:textColor="@color/black" />
 
@@ -87,7 +87,7 @@
                     android:id="@+id/txtDailyGoal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Daily Step"
+                    android:text="@string/daily_step"
                     android:textAlignment="center"
                     android:textColor="@color/black" />
 
@@ -111,7 +111,7 @@
                     android:id="@+id/txtYoga"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Meditation"
+                    android:text="@string/meditation"
                     android:textAlignment="center"
                     android:textColor="@color/black" />
 
@@ -135,7 +135,7 @@
                     android:id="@+id/txtPositive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Positive"
+                    android:text="@string/positive"
                     android:textAlignment="center"
                     android:textColor="@color/black" />
 
