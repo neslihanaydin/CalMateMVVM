@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="24dp"
-        android:contentDescription="Add reminder"
+        android:contentDescription="@string/add_reminder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,15 +21,15 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="228dp"
+        android:layout_width="200dp"
         android:layout_height="85dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="70dp"
         android:fontFamily="@font/manrope"
         android:maxLines="4"
 
         android:paddingStart="5dp"
-        android:text="Add Reminders \nto Remember Your Medicines"
+        android:text="@string/add_reminders_nto_remember_your_medicines"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
