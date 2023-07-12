@@ -13,6 +13,7 @@ import com.example.calmatemvvm.common.viewModels
 import com.example.calmatemvvm.databinding.HomePageMeditationsBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
 import com.example.calmatemvvm.ui.meditation.MeditationFragmentArgs
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CardView : BaseFragment<HomePageMeditationsBinding>() {
     override val viewModel by viewModels {
@@ -34,6 +35,8 @@ class CardView : BaseFragment<HomePageMeditationsBinding>() {
                 R.id.meditationListFragment,
                 null
             )
+            val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
+            bottomNavigationView?.selectedItemId = R.id.page_meditation
         }
 
         val recyclerView: RecyclerView = binding.recyclerMeditations
