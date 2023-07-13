@@ -40,6 +40,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setToolbarVisibility(false)
+
         val videoView: VideoView = binding.cardViewTop.findViewById(R.id.videoViewCard)
         val videoPath =
             "android.resource://" + requireContext().packageName + "/" + R.raw.calmate_intro
@@ -52,6 +54,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             )
         }
 
+        binding.btnMeditation.setOnClickListener {
+            appViewModel.navigationUnit.navigate(
+                HomeFragmentDirections.actionHomeFragmentToMeditationListFragment()
+            )
+            val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
+            bottomNavigationView?.selectedItemId = R.id.page_meditation
+        }
 
         val childFragment = CardView()
         childFragmentManager.beginTransaction()
@@ -63,6 +72,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         childFragmentManager.beginTransaction()
             .replace(R.id.card_view_step, childSetGoalFragment)
             .commit()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
 

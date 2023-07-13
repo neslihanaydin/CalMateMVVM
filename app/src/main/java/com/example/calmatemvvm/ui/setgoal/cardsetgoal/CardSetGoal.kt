@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.example.calmatemvvm.R
 import com.example.calmatemvvm.databinding.DailyStepSetBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
@@ -26,7 +27,6 @@ class CardSetGoal : BaseFragment<DailyStepSetBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.addAGoalButton.setOnClickListener{
-            System.out.println("Girdim")
             appViewModel.navigationUnit.navigate(
                 R.id.setGoalFragment,
                 null

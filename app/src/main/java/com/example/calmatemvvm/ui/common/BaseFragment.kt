@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
 import com.example.calmatemvvm.app.AppViewModel
+import com.google.android.material.appbar.MaterialToolbar
 
 abstract class BaseFragment<T : ViewBinding>: Fragment() {
 
@@ -36,4 +37,10 @@ abstract class BaseFragment<T : ViewBinding>: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): T
+
+    protected fun setToolbarVisibility(isVisible: Boolean) {
+        val activity = requireActivity()
+        val toolbar = activity.findViewById<MaterialToolbar>(com.example.calmatemvvm.R.id.topAppBar)
+        toolbar.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
 }

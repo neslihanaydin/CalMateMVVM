@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.fragment.navArgs
 import com.example.calmatemvvm.R
 import com.example.calmatemvvm.databinding.FragmentMeditationBinding
@@ -48,6 +49,8 @@ class MeditationFragment : BaseFragment<FragmentMeditationBinding>() {
         initViews()
         setClickListeners()
         binding.itemThumbnail.setImageResource(args.imgSource)
+        setToolbarVisibility(false)
+
     }
 
     private fun setClickListeners() {
@@ -74,6 +77,7 @@ class MeditationFragment : BaseFragment<FragmentMeditationBinding>() {
 
     override fun onDestroy() {
         mediaPlayer.release()
+        timer.cancel()
         super.onDestroy()
     }
 

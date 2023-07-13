@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.calmatemvvm.R
@@ -39,6 +40,9 @@ class MeditationListFragment : BaseFragment<FragmentMeditationListBinding>() {
             val meditationAdapter = MeditationAdapter(it)
             recyclerView.adapter = meditationAdapter
         }
+
+        setToolbarVisibility(true)
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

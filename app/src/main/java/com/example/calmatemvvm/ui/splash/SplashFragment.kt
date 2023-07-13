@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.example.calmatemvvm.R
 import com.example.calmatemvvm.common.viewModels
 import com.example.calmatemvvm.common.viewScope
@@ -33,6 +34,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setToolbarVisibility(false)
+
         viewScope.launch {
             delay(2000)
             appViewModel.navigationUnit.navigate(
