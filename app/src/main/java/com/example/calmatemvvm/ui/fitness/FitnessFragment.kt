@@ -31,7 +31,7 @@ class FitnessFragment : BaseFragment<FragmentFitnessBinding>() {
         textViewSteps = rootView.findViewById(R.id.steps)
 
         viewModel.getDailyFitnessData(rootView.context).observe(viewLifecycleOwner, Observer {  DailyFitness->
-            textViewSteps.text = DailyFitness.stepCount.toString()
+            textViewSteps.text = DailyFitness.stepCount.toString() + " "
         })
 
         return rootView

@@ -60,6 +60,12 @@
         <action
             android:id="@+id/action_homeFragment_to_meditationListFragment"
             app:destination="@id/meditationListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_positiveFragment"
+            app:destination="@id/positiveFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addMedication"
+            app:destination="@id/addMedication" />
     </fragment>
     <fragment
         android:id="@+id/fitnessFragment"
@@ -89,4 +95,12 @@
         android:id="@+id/meditationListFragment"
         android:name="com.example.calmatemvvm.ui.meditationlist.MeditationListFragment"
         android:label="MeditationListFragment" />
+    <fragment
+        android:id="@+id/positiveFragment"
+        android:name="com.example.calmatemvvm.ui.positive.PositiveFragment"
+        android:label="PositiveFragment" />
+    <fragment
+        android:id="@+id/addMedication"
+        android:name="com.example.calmatemvvm.ui.medication.AddMedication"
+        android:label="AddMedication" />
 </navigation>
