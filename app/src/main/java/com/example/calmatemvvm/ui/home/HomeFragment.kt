@@ -11,6 +11,7 @@ import com.example.calmatemvvm.R
 import com.example.calmatemvvm.databinding.FragmentHomeBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
 import com.example.calmatemvvm.common.viewModels
+import com.example.calmatemvvm.ui.medication.cardaddmedication.CardAddMedication
 import com.example.calmatemvvm.ui.meditationlist.recommendedcardview.CardView
 import com.example.calmatemvvm.ui.setgoal.cardsetgoal.CardSetGoal
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -37,6 +38,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         return FragmentHomeBinding.inflate(inflater)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -62,6 +64,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             bottomNavigationView?.selectedItemId = R.id.page_meditation
         }
 
+        binding.btnPositive.setOnClickListener {
+            appViewModel.navigationUnit.navigate(
+                R.id.positiveFragment,
+                null
+            )
+        }
+
+        binding.btnMedications.setOnClickListener{
+            appViewModel.navigationUnit.navigate(
+                R.id.addMedication,
+                null
+            )
+
+        }
+
         val childFragment = CardView()
         childFragmentManager.beginTransaction()
             .replace(R.id.card_view_meditations, childFragment)
@@ -71,6 +88,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         val childSetGoalFragment = CardSetGoal()
         childFragmentManager.beginTransaction()
             .replace(R.id.card_view_step, childSetGoalFragment)
+            .commit()
+
+        val childAddMedicationFragment = CardAddMedication()
+        childFragmentManager.beginTransaction()
+            .replace(R.id.card_view_add_medication, childAddMedicationFragment)
             .commit()
     }
 

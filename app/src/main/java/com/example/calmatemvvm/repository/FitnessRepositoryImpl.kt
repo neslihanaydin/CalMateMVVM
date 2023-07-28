@@ -57,7 +57,7 @@ class FitnessRepositoryImpl(): FitnessRepository {
                                 stepCount = dataPoint.getValue(Field.FIELD_STEPS).asInt()
                             }
                             DataType.TYPE_CALORIES_EXPENDED -> {
-                                calories = dataPoint.getValue(Field.FIELD_CALORIES).asInt()
+                                calories = (dataPoint.getValue(Field.FIELD_CALORIES).asFloat()).toInt()
                             }
                             DataType.TYPE_DISTANCE_DELTA -> {
                                 distance = dataPoint.getValue(Field.FIELD_DISTANCE).asFloat() / 1000
