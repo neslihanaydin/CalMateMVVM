@@ -45,8 +45,10 @@ class AddMedication : BaseFragment<FragmentAddMedicationBinding>() {
         binding.removeAlarm.setOnClickListener{ removeAlarm()}
 
         alarmMgr = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        // Set the FLAG_IMMUTABLE flag on the PendingIntent
         alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
-            PendingIntent.getBroadcast(context, 0, intent, 0)
+            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         }
 
     }
