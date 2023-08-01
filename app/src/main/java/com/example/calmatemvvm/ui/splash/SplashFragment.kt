@@ -1,5 +1,6 @@
 package com.example.calmatemvvm.ui.splash
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import com.example.calmatemvvm.R
 import com.example.calmatemvvm.common.viewModels
 import com.example.calmatemvvm.common.viewScope
+import com.example.calmatemvvm.data.DatabaseHelper
 import com.example.calmatemvvm.databinding.FragmentSplashBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -15,6 +17,8 @@ import kotlinx.coroutines.launch
 
 
 class SplashFragment : BaseFragment<FragmentSplashBinding>() {
+
+    private var databaseHelper : DatabaseHelper? = null
 
     override val viewModel by viewModels {
         SplashViewModel()
@@ -39,10 +43,36 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
         viewScope.launch {
             delay(2000)
-            appViewModel.navigationUnit.navigate(
-                R.id.homeFragment,
-                null
-            )
+            if(onBoardingFinished()){
+                // check shared preferences
+                val sharedPreferences = requireContext().getSharedPreferences("rememberMe", 0)
+                val username = sharedPreferences.getString("username", "")
+                if (username != null && username != "") {
+                    databaseHelper = DatabaseHelper(requireContext())
+                    val user = databaseHelper!!.getUserByEmail(username)
+                    appViewModel.setLoggedUser(user)
+                    appViewModel.navigationUnit.navigate(
+                        R.id.homeFragment,
+                        null
+                    )
+                } else {
+                    appViewModel.navigationUnit.navigate(
+                        R.id.welcomeFragment,
+                        null
+                    )
+                }
+            } else {
+                appViewModel.navigationUnit.navigate(
+                    R.id.viewPagerFragment,
+                    null
+                )
+            }
+
         }
+    }
+
+    private fun onBoardingFinished() :Boolean{
+        val sharedPreferences = requireContext().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
+        return sharedPreferences.getBoolean("Finished", false)
     }
 }
