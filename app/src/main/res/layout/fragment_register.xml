@@ -53,7 +53,7 @@
                 app:helperText="Required"
                 app:errorEnabled="true"
                 errorText="@{viewModel.formValidationStatus.fullNameHasError.errorText}"
-                isValid="@{viewModel.formValidationStatus.fullNameHasError.isActive}"
+                isValid="@{viewModel.formValidationStatus.fullNameHasError.isValid}"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fullName"
@@ -72,7 +72,7 @@
                 app:helperText="Required"
                 app:errorEnabled="true"
                 errorText="@{viewModel.formValidationStatus.userNameHasError.errorText}"
-                isValid="@{viewModel.formValidationStatus.userNameHasError.isActive}"
+                isValid="@{viewModel.formValidationStatus.userNameHasError.isValid}"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/username"
@@ -89,7 +89,7 @@
                 app:helperText="Required"
                 app:errorEnabled="true"
                 errorText="@{viewModel.formValidationStatus.passwordHasError.errorText}"
-                isValid="@{viewModel.formValidationStatus.passwordHasError.isActive}"
+                isValid="@{viewModel.formValidationStatus.passwordHasError.isValid}"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:endIconMode="password_toggle">
                 <com.google.android.material.textfield.TextInputEditText
@@ -107,7 +107,7 @@
                 app:helperText="Required"
                 app:errorEnabled="true"
                 errorText="@{viewModel.formValidationStatus.passwordConfirmationHasError.errorText}"
-                isValid="@{viewModel.formValidationStatus.passwordConfirmationHasError.isActive}"
+                isValid="@{viewModel.formValidationStatus.passwordConfirmationHasError.isValid}"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:endIconMode="password_toggle">
                 <com.google.android.material.textfield.TextInputEditText

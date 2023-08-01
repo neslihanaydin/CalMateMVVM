@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.VideoView
 import com.example.calmatemvvm.R
 import com.example.calmatemvvm.databinding.FragmentHomeBinding
@@ -38,11 +39,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         return FragmentHomeBinding.inflate(inflater)
     }
 
+    private fun getGreetingMessage(): String {
+        val c = java.util.Calendar.getInstance()
+        val timeOfDay = c.get(java.util.Calendar.HOUR_OF_DAY)
+        return when (timeOfDay) {
+            in 6..11 -> "Good Morning,"
+            in 12..15 -> "Good Afternoon,"
+            in 16..20 -> "Good Evening,"
+            else -> "Good Night,"
+        }
+    }
+
+    private fun setHomePageMessages() {
+        val greetingMessage = getGreetingMessage()
+        val txtGreetingMessage: TextView = binding.cardViewTop.findViewById(R.id.txtHello)
+        txtGreetingMessage.text = greetingMessage
+
+        // Set user name on the home page
+        val txtUserName: TextView = binding.cardViewTop.findViewById(R.id.txtUserName)
+        txtUserName.text = appViewModel.getUser()?.first_name ?: ""
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setToolbarVisibility(false)
+
+        setHomePageMessages()
+
 
         val videoView: VideoView = binding.cardViewTop.findViewById(R.id.videoViewCard)
         val videoPath =

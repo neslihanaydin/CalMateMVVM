@@ -1,7 +1,5 @@
 package com.example.calmatemvvm.ui.register
 
-import androidx.lifecycle.MutableLiveData
-
 data class FormFieldsValidationStatus(
     val userNameHasError : FieldErrorStatus = FieldErrorStatus(),
     val fullNameHasError : FieldErrorStatus = FieldErrorStatus(),
@@ -9,10 +7,10 @@ data class FormFieldsValidationStatus(
     val passwordConfirmationHasError : FieldErrorStatus = FieldErrorStatus(),
 ) {
   fun validatePage(isTermChecked : Boolean) : Boolean {
-      val result = (userNameHasError.isActive.value == false &&
-              fullNameHasError.isActive.value == false &&
-              passwordHasError.isActive.value == false &&
-              passwordConfirmationHasError.isActive.value == false &&
+      val result = (userNameHasError.isValid.value == true &&
+              fullNameHasError.isValid.value == true &&
+              passwordHasError.isValid.value == true &&
+              passwordConfirmationHasError.isValid.value == true &&
               isTermChecked)
       return result
   }
