@@ -17,7 +17,7 @@ class ThirdScreen(override val viewModel: BaseViewModel) : BaseFragment<Fragment
 
         binding.next3.setOnClickListener {
             appViewModel.navigationUnit.navigate(
-                R.id.welcomeFragment,
+                R.id.homeFragment,
                 null
             )
             onBoardingFinished()

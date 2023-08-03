@@ -43,7 +43,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
         viewScope.launch {
             delay(2000)
-            if(onBoardingFinished()){
+
                 // check shared preferences
                 val sharedPreferences = requireContext().getSharedPreferences("rememberMe", 0)
                 val username = sharedPreferences.getString("username", "")
@@ -61,18 +61,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
                         null
                     )
                 }
-            } else {
-                appViewModel.navigationUnit.navigate(
-                    R.id.viewPagerFragment,
-                    null
-                )
             }
-
         }
     }
 
-    private fun onBoardingFinished() :Boolean{
-        val sharedPreferences = requireContext().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
-        return sharedPreferences.getBoolean("Finished", false)
-    }
-}
+
