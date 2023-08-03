@@ -68,7 +68,8 @@ class DatabaseHelper @Inject constructor(
         val CREATE_FAVORITE_QUOTES_TABLE = ("CREATE TABLE " + TABLE_FAVORITE_QUOTES + "("
                 + CL_FQ_FAVORITE_QUOTES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + CL_FQ_USER_ID + " INTEGER,"
-                + CL_FQ_QUOTE_ID + " INTEGER,"
+                + CL_FQ_QUOTE + " TEXT,"
+                + CL_FQ_QUOTE_AUTHOR + " TEXT,"
                 + CL_FQ_FAVORITED_AT + " TEXT,"
                 + "FOREIGN KEY (" + CL_FQ_USER_ID + ") REFERENCES " + TABLE_USER + "(" + CL_U_USER_ID + ")" + ")")
         db.execSQL(CREATE_FAVORITE_QUOTES_TABLE)
@@ -234,6 +235,30 @@ class DatabaseHelper @Inject constructor(
         return user
     }
 
+    fun getUserIdByEmail(email: String): Int {
+        val db = this.readableDatabase
+        val columns = arrayOf(
+            CL_U_USER_ID,
+            CL_U_USERNAME,
+            CL_U_EMAIL,
+            CL_U_PASSWORD,
+            CL_U_FIRST_NAME,
+            CL_U_LAST_NAME,
+            CL_U_MOVE_GOAL,
+            CL_U_CREATED_AT
+        )
+        val selection = CL_U_EMAIL + " = ?"
+        val selectionArgs = arrayOf(email)
+        val cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null)
+        var userId = 0
+        if (cursor.moveToFirst()) {
+            userId = cursor.getInt(0)
+        }
+        cursor.close()
+        db.close()
+        return userId
+    }
+
     // add a medication
     fun addMedication(userId: Int, medicationName: String?): String {
         val db = this.writableDatabase
@@ -289,20 +314,16 @@ class DatabaseHelper @Inject constructor(
     }
 
     // add quote to user's favorite
-    fun addFavoriteQuote(userId: Int, quoteId: Int): String {
+    fun addFavoriteQuote(userId: Int, quote: String, author: String){
         val db = this.writableDatabase
         val cv = ContentValues()
         val currentTimeMillis = System.currentTimeMillis()
         val timestampString = currentTimeMillis.toString()
         cv.put(CL_FQ_USER_ID, userId)
-        cv.put(CL_FQ_QUOTE_ID, quoteId)
+        cv.put(CL_FQ_QUOTE, quote)
+        cv.put(CL_FQ_QUOTE_AUTHOR, author)
         cv.put(CL_FQ_FAVORITED_AT, timestampString)
-        val result = db.insert(TABLE_FAVORITE_QUOTES, null, cv)
-        return if (result == -1L) {
-            "Failed to add quote to favorite"
-        } else {
-            "Quote added to favorite successfully"
-        }
+        db.insert(TABLE_FAVORITE_QUOTES, null, cv)
     }
 
     // check if user exists
@@ -389,7 +410,8 @@ class DatabaseHelper @Inject constructor(
         private const val TABLE_FAVORITE_QUOTES = "FAVORITE_QUOTES"
         private const val CL_FQ_FAVORITE_QUOTES_ID = "favorite_quotes_id"
         private const val CL_FQ_USER_ID = "user_id"
-        private const val CL_FQ_QUOTE_ID = "quote_id"
+        private const val CL_FQ_QUOTE = "quote"
+        private const val CL_FQ_QUOTE_AUTHOR = "quote_author"
         private const val CL_FQ_FAVORITED_AT = "favorited_at"
 
         // NOTIFICATION TABLE

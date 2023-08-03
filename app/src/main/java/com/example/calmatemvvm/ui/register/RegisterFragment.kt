@@ -8,7 +8,6 @@ import androidx.core.view.doOnLayout
 import androidx.core.widget.doAfterTextChanged
 import com.example.calmatemvvm.R
 import com.example.calmatemvvm.common.viewModels
-import com.example.calmatemvvm.data.DatabaseHelper
 import com.example.calmatemvvm.databinding.FragmentRegisterBinding
 import com.example.calmatemvvm.model.User
 import com.example.calmatemvvm.ui.common.BaseFragment
@@ -17,7 +16,6 @@ import com.google.android.material.snackbar.Snackbar
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
-    private var databaseHelper : DatabaseHelper? = null
 
     override val viewModel by viewModels {
         RegisterViewModel(appViewModel)
@@ -48,7 +46,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             if(viewModel.formValidationStatus.validatePage(isTermChecked)) {
                 // TODO: Register user, Navigate next page
 
-                databaseHelper = DatabaseHelper(requireContext())
                 val username = binding.username.text.toString()
                 val password = binding.password.text.toString()
                 val fullName = binding.fullName.text.toString()
@@ -73,7 +70,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 )
                 appViewModel.setLoggedUser(user)
                 appViewModel.navigationUnit.navigate(
-                    R.id.homeFragment,
+                    R.id.viewPagerFragment,
                     null
                 )
 
