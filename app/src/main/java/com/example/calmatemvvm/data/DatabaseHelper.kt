@@ -205,7 +205,7 @@ class DatabaseHelper @Inject constructor(
     }
 
     // get a user by email
-    fun getUserByEmail(email: String): User {
+    fun getUserByEmail(email: String): User? {
         val db = this.readableDatabase
         val columns = arrayOf(
             CL_U_USER_ID,
@@ -219,16 +219,10 @@ class DatabaseHelper @Inject constructor(
         )
         val selection = CL_U_EMAIL + " = ?"
         val selectionArgs = arrayOf(email)
-        val user = User()
+        var user : User? = null
         val cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null)
         if (cursor.moveToFirst()) {
-            user.username = email
-            user.email = email
-            user.password = cursor.getString(3)
-            user.first_name = cursor.getString(4)
-            user.last_name = cursor.getString(5)
-            user.move_goal = cursor.getInt(6)
-            user.created_at = cursor.getString(7)
+            user = User(email,email, cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getInt(6), cursor.getString(7), null)
         }
         cursor.close()
         db.close()

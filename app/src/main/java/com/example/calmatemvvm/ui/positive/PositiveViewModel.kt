@@ -1,6 +1,5 @@
 package com.example.calmatemvvm.ui.positive
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
@@ -26,7 +25,8 @@ class PositiveViewModel(private val appViewModel: AppViewModel) : BaseViewModel(
         return true
     }
 
-    fun fetchQuoteByMood(mood: String): JsonArrayRequest {
+    fun fetchQuoteByMood(): JsonArrayRequest {
+        val mood = appViewModel.getMood()
         var category = ""
         category = if (mood == "awful") {
             "Failure"

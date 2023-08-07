@@ -103,6 +103,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         }
 
+        binding.buttonMood.setOnClickListener {
+            appViewModel.navigationUnit.navigate(
+                R.id.askMoodFragment,
+                null
+            )
+        }
+
         val childFragment = CardView()
         childFragmentManager.beginTransaction()
             .replace(R.id.card_view_meditations, childFragment)

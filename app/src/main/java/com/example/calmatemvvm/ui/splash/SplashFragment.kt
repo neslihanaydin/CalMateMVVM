@@ -50,11 +50,14 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
                 if (username != null && username != "") {
                     databaseHelper = DatabaseHelper(requireContext())
                     val user = databaseHelper!!.getUserByEmail(username)
-                    appViewModel.setLoggedUser(user)
-                    appViewModel.navigationUnit.navigate(
-                        R.id.homeFragment,
-                        null
-                    )
+                    user?.let {
+                        // Set logged user to the app view model
+                        appViewModel.setLoggedUser(it)
+                        appViewModel.navigationUnit.navigate(
+                            R.id.homeFragment,
+                            null
+                        )
+                    }
                 } else {
                     appViewModel.navigationUnit.navigate(
                         R.id.welcomeFragment,

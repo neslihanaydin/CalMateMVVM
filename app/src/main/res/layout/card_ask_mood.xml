@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.calmatemvvm.ui.askmood.AskMoodViewModel" />
+    </data>
+<LinearLayout
     android:id="@+id/mood_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center|center_vertical">
+    android:gravity="center|center_vertical"
+    tools:context=".ui.askmood.AskMoodFragment">
 
     <TextView
         android:id="@+id/textViewMood"
@@ -30,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMood">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:orientation="horizontal"
@@ -39,13 +46,42 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
+                android:id="@+id/fullSad"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/mood_full_circle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
                 android:id="@+id/imgSad"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/sentiment_sad" />
+                app:srcCompat="@drawable/sentiment_sad"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/fullContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/mood_full_circle"
+                app:layout_constraintStart_toEndOf="@id/imgSad"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
                 android:id="@+id/imgContent"
@@ -54,7 +90,23 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/sentiment_content" />
+                app:srcCompat="@drawable/sentiment_content"
+                app:layout_constraintStart_toEndOf="@id/imgSad"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/fullCalm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/mood_full_circle"
+                app:layout_constraintStart_toEndOf="@id/imgContent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
                 android:id="@+id/imgCalm"
@@ -63,7 +115,24 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/sentiment_calm" />
+                app:srcCompat="@drawable/sentiment_calm"
+                app:layout_constraintStart_toEndOf="@id/imgContent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/fullMood"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/mood_full_circle"
+                app:layout_constraintStart_toEndOf="@id/imgCalm"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
 
             <ImageView
                 android:id="@+id/imgMood"
@@ -72,7 +141,23 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/sentiment_mood" />
+                app:srcCompat="@drawable/sentiment_mood"
+                app:layout_constraintStart_toEndOf="@id/imgCalm"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/fullExcited"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/mood_full_circle"
+                app:layout_constraintStart_toEndOf="@id/imgMood"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
                 android:id="@+id/imgExcited"
@@ -81,7 +166,23 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/sentiment_excited" />
-        </LinearLayout>
+                app:srcCompat="@drawable/sentiment_excited"
+                app:layout_constraintStart_toEndOf="@id/imgMood"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </HorizontalScrollView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSendMood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/purple_app"
+        android:text="Send Mood"
+        android:textSize="18sp"
+        />
+
 </LinearLayout>
+</layout>

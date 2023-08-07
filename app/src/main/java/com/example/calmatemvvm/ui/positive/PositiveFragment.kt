@@ -28,7 +28,7 @@ class PositiveFragment : BaseFragment<FragmentPositiveBinding>() {
         savedInstanceState: Bundle?
     ): FragmentPositiveBinding {
         requestQueue = VolleySingleton.getInstance(context).getRequestQueue()
-        fetchQuoteByMood("fine")
+        fetchQuoteByMood()
 
         return FragmentPositiveBinding.inflate(inflater).also {
             it.viewModel = viewModel
@@ -42,7 +42,7 @@ class PositiveFragment : BaseFragment<FragmentPositiveBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         setToolbarVisibility(true)
-        fetchQuoteByMood("fine")
+        fetchQuoteByMood()
         hideProgressBar()
 
         binding.btnNextQuote.setOnClickListener(View.OnClickListener {
@@ -50,7 +50,7 @@ class PositiveFragment : BaseFragment<FragmentPositiveBinding>() {
             binding.addFav.visibility = View.GONE
             binding.btnNextQuote.visibility = View.GONE
             binding.addFav.isChecked = false
-            fetchQuoteByMood("fine")
+            fetchQuoteByMood()
             hideProgressBar()
         })
 
@@ -91,8 +91,8 @@ class PositiveFragment : BaseFragment<FragmentPositiveBinding>() {
         requestQueue?.add<JSONArray>(request)
     }
 
-    private fun fetchQuoteByMood(mood: String) {
-        val request = viewModel.fetchQuoteByMood(mood)
+    private fun fetchQuoteByMood() {
+        val request = viewModel.fetchQuoteByMood()
         requestQueue?.add<JSONArray>(request)
     }
 
