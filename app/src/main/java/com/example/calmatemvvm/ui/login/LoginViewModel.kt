@@ -10,9 +10,11 @@ class LoginViewModel(private val appViewModel: AppViewModel) : BaseViewModel() {
         val status = appViewModel.dbHelper.checkUser(email, password)
         if (status) {
             val user = appViewModel.dbHelper.getUserByEmail(email)
-            // Set logged user to the app view model
-            appViewModel.setLoggedUser(user)
-            return true
+            user?.let {
+                // Set logged user to the app view model
+                appViewModel.setLoggedUser(it)
+                return true
+            }
         }
         return false
     }

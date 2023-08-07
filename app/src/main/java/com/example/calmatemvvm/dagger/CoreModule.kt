@@ -22,12 +22,6 @@ class CoreModule(private val context: Context) {
 
     @Singleton
     @Provides
-    fun provideUser(): User {
-        return User()
-    }
-
-    @Singleton
-    @Provides
     fun provideDatabaseHelper(context: Context): DatabaseHelper {
         return DatabaseHelper(context)
     }

@@ -11,5 +11,4 @@ import com.example.calmatemvvm.model.User
 interface AppComponent {
     fun getAppViewModel(): AppViewModel
 
-    fun getUser(): User
 }
