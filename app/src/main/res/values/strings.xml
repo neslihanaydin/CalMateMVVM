@@ -63,4 +63,5 @@
     <string name="meditate">Meditate</string>
     <string name="profile">Profile</string>
     <string name="notifications">Notifications</string>
+    <string name="you_made_it">You made it!. Congratulations.</string>
 </resources>

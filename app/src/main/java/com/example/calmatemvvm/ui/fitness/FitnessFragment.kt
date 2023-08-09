@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.example.calmatemvvm.R
@@ -16,9 +17,12 @@ class FitnessFragment : BaseFragment<FragmentFitnessBinding>() {
 
     private lateinit var textViewSteps: TextView
     private lateinit var btnDailyGoal: Button
+    private lateinit var tvSuccess: TextView
+    private lateinit var imgFinishLine: ImageView
+    private var dailyStep: Int = 0
 
     override val viewModel by viewModels {
-        FitnessViewModel()
+        FitnessViewModel(appViewModel)
     }
 
     override fun onCreateView(
@@ -29,12 +33,23 @@ class FitnessFragment : BaseFragment<FragmentFitnessBinding>() {
         val rootView = inflater.inflate(R.layout.fragment_fitness, container, false)
         requireContext()
         textViewSteps = rootView.findViewById(R.id.steps)
-
+        tvSuccess = rootView.findViewById(R.id.tvSuccess)
+        imgFinishLine = rootView.findViewById(R.id.imgFinishLine)
         viewModel.getDailyFitnessData(rootView.context).observe(viewLifecycleOwner, Observer {  DailyFitness->
-            textViewSteps.text = DailyFitness.stepCount.toString() + " "
+            dailyStep = DailyFitness.stepCount
+            textViewSteps.text = dailyStep.toString() + " "
+            checkGoal(dailyStep)
         })
 
         return rootView
+    }
+
+    private fun checkGoal(dailyStep: Int) {
+
+        if(viewModel.checkGoalReached(dailyStep)){
+            tvSuccess.visibility = View.VISIBLE
+            imgFinishLine.visibility = View.VISIBLE
+        }
     }
 
     override fun onCreateBinding(
@@ -42,6 +57,8 @@ class FitnessFragment : BaseFragment<FragmentFitnessBinding>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): FragmentFitnessBinding {
+        binding.tvSuccess.visibility = View.INVISIBLE
+        binding.imgFinishLine.visibility = View.INVISIBLE
         return FragmentFitnessBinding.inflate(inflater).also {
             it.viewModel = viewModel
         }
@@ -58,5 +75,6 @@ class FitnessFragment : BaseFragment<FragmentFitnessBinding>() {
                 null
             )
         }
+
     }
 }

@@ -178,6 +178,23 @@ class DatabaseHelper @Inject constructor(
         return "Move goal updated to $moveGoal"
     }
 
+    fun getUserMoveGoal(userId: Int): Int{
+        val db = this.readableDatabase
+        val columns = arrayOf(
+            CL_U_MOVE_GOAL
+        )
+        val selection = CL_U_USER_ID + " = ?"
+        val selectionArgs = arrayOf(userId.toString())
+        val cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null)
+        var moveGoal = 0
+        if (cursor.moveToFirst()) {
+            moveGoal = cursor.getInt(0)
+        }
+        cursor.close()
+        db.close()
+        return moveGoal
+    }
+
     // add a user
     fun addUser(
         username: String?,
