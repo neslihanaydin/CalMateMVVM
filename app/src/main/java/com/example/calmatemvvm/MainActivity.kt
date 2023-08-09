@@ -88,6 +88,10 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.page_favorite -> {
+                    appViewModel.navigationUnit.navigate(
+                        R.id.favoritesFragment,
+                        null
+                    )
                     true
                 }
                 R.id.page_meditation -> {

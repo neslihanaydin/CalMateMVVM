@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.calmatemvvm.model.Quote
 import com.example.calmatemvvm.model.User
 import javax.inject.Inject
 
@@ -335,6 +336,35 @@ class DatabaseHelper @Inject constructor(
         cv.put(CL_FQ_QUOTE_AUTHOR, author)
         cv.put(CL_FQ_FAVORITED_AT, timestampString)
         db.insert(TABLE_FAVORITE_QUOTES, null, cv)
+    }
+
+    fun getFavoritesQuotesByUserId(userId: Int): MutableList<Quote> {
+        val db = this.readableDatabase
+        val columns = arrayOf(
+            CL_FQ_FAVORITE_QUOTES_ID,
+            CL_FQ_USER_ID,
+            CL_FQ_QUOTE,
+            CL_FQ_QUOTE_AUTHOR,
+            CL_FQ_FAVORITED_AT
+        )
+        // order by favorited at desc
+        val selection = CL_FQ_USER_ID + " = ?"
+        val selectionArgs = arrayOf(userId.toString())
+        val cursor = db.query(TABLE_FAVORITE_QUOTES, columns, selection, selectionArgs, null, null, null)
+        val favoriteQuotes = mutableListOf<Quote>()
+        if (cursor.moveToFirst()) {
+            do {
+                val quote = Quote(
+                    cursor.getInt(0),
+                    cursor.getString(2),
+                    cursor.getString(3)
+                )
+                favoriteQuotes.add(quote)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return favoriteQuotes
     }
 
     // check if user exists
