@@ -72,6 +72,9 @@
         <action
             android:id="@+id/action_homeFragment_to_askMoodFragment"
             app:destination="@id/askMoodFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/fitnessFragment"
@@ -118,4 +121,9 @@
         android:id="@+id/askMoodFragment"
         android:name="com.example.calmatemvvm.ui.askmood.AskMoodFragment"
         android:label="AskMoodFragment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.calmatemvvm.ui.favorites.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
 </navigation>
