@@ -63,8 +63,6 @@ class AskMoodFragment : BaseFragment<CardAskMoodBinding>() {
                null
            )
        }
-
-
     }
 
     private fun makeBackgroundInvisible(){

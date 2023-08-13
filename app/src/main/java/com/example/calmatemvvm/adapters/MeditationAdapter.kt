@@ -32,13 +32,14 @@ class MeditationAdapter(private val meditationList: List<MeditationHolder>) : Re
         private val titleMeditation: TextView = itemView.findViewById(R.id.titleMeditation)
         private val durationMeditation: TextView = itemView.findViewById(R.id.durMediatation)
         private val btnStartMeditation: Button = itemView.findViewById(R.id.btnStartMeditation)
-        private val iconLike: CheckBox = itemView.findViewById(R.id.iconLike)
         private val imgMeditation: ImageView = itemView.findViewById(R.id.ImgMeditation)
 
         fun bind(meditationHolder: MeditationHolder) {
             val meditation = meditationHolder.item
             titleMeditation.text = meditation.title
-            durationMeditation.text = meditation.duration.toString()
+            val duration = meditation.duration
+            val durationInMin = (duration / 60).toInt()
+            durationMeditation.text = durationInMin.toString() + " min"
             imgMeditation.setImageResource(meditation.imageUrl)
             btnStartMeditation.setOnClickListener(meditationHolder.onClick)
         }

@@ -247,6 +247,8 @@ class DatabaseHelper @Inject constructor(
         return user
     }
 
+
+
     fun getUserIdByEmail(email: String): Int {
         val db = this.readableDatabase
         val columns = arrayOf(
@@ -269,6 +271,19 @@ class DatabaseHelper @Inject constructor(
         cursor.close()
         db.close()
         return userId
+    }
+
+    fun updateUserPassword(email: String, newPassword: String): Int{
+        val db = this.writableDatabase
+        val cv = ContentValues()
+        cv.put(CL_U_PASSWORD, newPassword)
+        val result = db.update(
+            TABLE_USER,
+            cv,
+            CL_U_EMAIL + " = ?",
+            arrayOf(email.toString())
+        )
+        return result
     }
 
     // add a medication

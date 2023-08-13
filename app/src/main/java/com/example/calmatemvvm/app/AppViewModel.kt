@@ -38,6 +38,10 @@ class AppViewModel @Inject constructor(
         return this.user
     }
 
+    fun logOut() {
+        this.user = null
+    }
+
     fun setMood(mood: String) {
         if (this.user != null) {
             this.user!!.mood = this.user!!.mood ?: mood // if mood is null, set mood

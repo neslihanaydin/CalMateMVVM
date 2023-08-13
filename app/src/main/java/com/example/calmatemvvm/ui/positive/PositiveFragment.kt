@@ -1,6 +1,7 @@
 package com.example.calmatemvvm.ui.positive
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,8 @@ import org.json.JSONException
 class PositiveFragment : BaseFragment<FragmentPositiveBinding>() {
 
     private var requestQueue: RequestQueue? = null
+    private val handler = Handler()
+    private val progressDurationMillis = 1300L
     override val viewModel by viewModels {
         PositiveViewModel(appViewModel)
     }
@@ -33,25 +36,26 @@ class PositiveFragment : BaseFragment<FragmentPositiveBinding>() {
         return FragmentPositiveBinding.inflate(inflater).also {
             it.viewModel = viewModel
         }
-
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setToolbarVisibility(true)
+        showProgressBar()
         fetchQuoteByMood()
-        hideProgressBar()
-
+        handler.postDelayed({
+            hideProgressBar()
+        }, progressDurationMillis)
         binding.btnNextQuote.setOnClickListener(View.OnClickListener {
-            binding.progressBar.visibility = View.VISIBLE
-            binding.addFav.visibility = View.GONE
-            binding.btnNextQuote.visibility = View.GONE
+            showProgressBar()
+
             binding.addFav.isChecked = false
             fetchQuoteByMood()
-            hideProgressBar()
+            // Delay hiding the progress bar for 2 seconds
+            handler.postDelayed({
+                hideProgressBar()
+            }, progressDurationMillis)
         })
 
         binding.addFav.setOnClickListener(View.OnClickListener {
@@ -72,25 +76,6 @@ class PositiveFragment : BaseFragment<FragmentPositiveBinding>() {
         }
     }
 
-    private fun fetchDailyQuote() {
-        val url = "https://zenquotes.io/api/today"
-        val request = JsonArrayRequest(
-            Request.Method.GET, url, null,
-            { response: JSONArray ->
-                try {
-                    val jsonObject = response.getJSONObject(0)
-                    val quote = jsonObject.getString("q")
-                    binding.tvQuote.text = quote
-                } catch (e: JSONException) {
-                    throw RuntimeException(e)
-                }
-            }
-        ) { error ->
-            error.printStackTrace()
-        }
-        requestQueue?.add<JSONArray>(request)
-    }
-
     private fun fetchQuoteByMood() {
         val request = viewModel.fetchQuoteByMood()
         requestQueue?.add<JSONArray>(request)
@@ -100,10 +85,20 @@ class PositiveFragment : BaseFragment<FragmentPositiveBinding>() {
         Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
     }
 
+    private fun showProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.addFav.visibility = View.GONE
+        binding.btnNextQuote.visibility = View.GONE
+        binding.tvQuote.visibility = View.GONE
+        binding.tvAuthor.visibility = View.GONE
+    }
+
     private fun hideProgressBar() {
         binding.progressBar.visibility = View.GONE
         binding.addFav.visibility = View.VISIBLE
         binding.btnNextQuote.visibility = View.VISIBLE
+        binding.tvQuote.visibility = View.VISIBLE
+        binding.tvAuthor.visibility = View.VISIBLE
     }
 
 

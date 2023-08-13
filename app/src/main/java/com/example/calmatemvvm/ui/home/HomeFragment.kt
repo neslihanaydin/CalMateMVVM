@@ -49,7 +49,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             else -> "Good Night,"
         }
     }
-
     private fun setHomePageMessages() {
         val greetingMessage = getGreetingMessage()
         val txtGreetingMessage: TextView = binding.cardViewTop.findViewById(R.id.txtHello)

@@ -56,7 +56,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 val timestampString = currentTimeMillis.toString()
 
                 val result = viewModel.register(username, password, timestampString, firstName, lastName)
-                showSnackbar(result)
+                //showSnackbar(result)
 
                 val user =
                     User(

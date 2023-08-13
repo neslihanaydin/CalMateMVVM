@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.calmatemvvm.app.AppViewModel
@@ -28,6 +29,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     private val GOOGLE_FIT_PERMISSIONS_REQUEST_CODE = 1
+    private val REQUEST_CALENDAR_PERMISSION = 1
+
+
     private val runningQOrLater =
         android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q
 
@@ -102,9 +106,10 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.page_profile -> {
-                    true
-                }
-                R.id.page_notifications -> {
+                    appViewModel.navigationUnit.navigate(
+                        R.id.profileFragment,
+                        null
+                    )
                     true
                 }
                 else -> false
@@ -130,13 +135,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.page_profile -> {
                     true
                 }
-                R.id.page_notifications -> {
-                    true
-                }
             }
         }
 
         checkPermissionsAndRun(GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
+        checkAndRequestCalendarPermissions()
 
     }
 
@@ -218,6 +221,50 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(currentDestinationId)
         }
     }
+
+    // Check if the app has calendar permissions, and request them if not.
+    private fun checkAndRequestCalendarPermissions() {
+        val readPermission = ContextCompat.checkSelfPermission(
+            this,
+            "android.permission.READ_CALENDAR"
+        )
+        val writePermission = ContextCompat.checkSelfPermission(
+            this,
+            "android.permission.WRITE_CALENDAR"
+        )
+
+        if (readPermission != PackageManager.PERMISSION_GRANTED || writePermission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    "android.permission.READ_CALENDAR",
+                    "android.permission.WRITE_CALENDAR"
+                ),
+                REQUEST_CALENDAR_PERMISSION
+            )
+        } else {
+            // Permissions are already granted, perform the operation that requires calendar access.
+            // For example, call the function that sets the calendar event.
+        }
+    }
+
+    // Handle permission request results
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CALENDAR_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission was granted, perform the operation that requires calendar access.
+                // For example, call the function that sets the calendar event.
+            } else {
+                // Permission denied. Handle the case where the user declined the permission request.
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (resultCode) {
@@ -233,4 +280,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }

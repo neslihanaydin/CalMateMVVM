@@ -152,7 +152,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/card_view_step"
                     android:layout_width="wrap_content"
@@ -164,16 +163,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/card_margin" />
-
             </LinearLayout>
         </HorizontalScrollView>
-
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/card_view_meditations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp" />
+
     </LinearLayout>
 </ScrollView>
 </layout>
