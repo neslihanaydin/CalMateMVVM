@@ -75,6 +75,9 @@
         <action
             android:id="@+id/action_homeFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/fitnessFragment"
@@ -126,4 +129,8 @@
         android:name="com.example.calmatemvvm.ui.favorites.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.calmatemvvm.ui.profile.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>

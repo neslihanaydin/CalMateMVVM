@@ -27,19 +27,13 @@ class PositiveViewModel(private val appViewModel: AppViewModel) : BaseViewModel(
 
     fun fetchQuoteByMood(): JsonArrayRequest {
         val mood = appViewModel.getMood()
-        var category = ""
-        category = if (mood == "awful") {
-            "Failure"
-        } else if (mood == "bad") {
-            "Anxiety"
-        } else if (mood == "so so") {
-            "Happiness"
-        } else if (mood == "fine") {
-            "Courage"
-        } else if (mood == "amazing") {
-            "Kindness"
-        } else {
-            "Inspiration"
+        val category = when (mood) {
+            "awful" -> "Failure"
+            "bad" -> "Anxiety"
+            "so so" -> "Happiness"
+            "fine" -> "Courage"
+            "amazing" -> "Kindness"
+            else -> "Inspiration"
         }
         val url = "https://zenquotes.io/api/quotes/keyword=" + category
         val request = JsonArrayRequest(

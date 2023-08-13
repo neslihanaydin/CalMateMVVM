@@ -1,5 +1,7 @@
 package com.example.calmatemvvm.ui.medication
 
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.CalendarContract
@@ -12,7 +14,9 @@ import com.example.calmatemvvm.ui.common.BaseFragment
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
+import java.util.TimeZone
 
 
 class AddMedication : BaseFragment<FragmentAddMedicationBinding>() {
@@ -63,28 +67,61 @@ class AddMedication : BaseFragment<FragmentAddMedicationBinding>() {
                 selectedDays.add("SU")
             }
 
-            // Event start and end time with date
-            // get Date like 2023-03-02
-            val currentDate = Date()
-            val sdf = java.text.SimpleDateFormat("yyyy-MM-dd")
-            val startDate = sdf.format(currentDate)
-            var startTime = startDate + "T" + selectedHour + ":" + selectedMinute + ":00"
-            var endTime =  startDate + "T" + (selectedHour + 1) + ":" + (selectedMinute) + ":00"
+            // Event start time  with date
 
-            // Parsing the date and time
-            val mSimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-            val mStartTime = mSimpleDateFormat.parse(startTime)
-            val mEndTime = mSimpleDateFormat.parse(endTime)
+            // Calculate the today
+            val currentDate = Date()
+            val sdf = SimpleDateFormat("yyyy-MM-dd")
+            val today = sdf.format(currentDate)
+
+            // Find the closest day starting from today
+            val calendar = Calendar.getInstance()
+            calendar.time = sdf.parse(today)!!
+
+            var startMonth = 0
+            var startDay = 0
+            var startHour = selectedHour
+            var startMinute = selectedMinute
+            var startYear = 0
+            // Check the next 7 days starting from today
+            val maxDaysToCheck = 7
+            for (i in 0 until maxDaysToCheck) {
+                val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+                val dayCode = when (dayOfWeek) {
+                    Calendar.MONDAY -> "MO"
+                    Calendar.TUESDAY -> "TU"
+                    Calendar.WEDNESDAY -> "WE"
+                    Calendar.THURSDAY -> "TH"
+                    Calendar.FRIDAY -> "FR"
+                    Calendar.SATURDAY -> "SA"
+                    Calendar.SUNDAY -> "SU"
+                    else -> ""
+                }
+                if (dayCode in selectedDays) {
+                    // Find the closest selected day
+                    startMonth = calendar.get(Calendar.MONTH)
+                    startDay = calendar.get(Calendar.DAY_OF_MONTH)
+                    startYear = calendar.get(Calendar.YEAR)
+                    break
+                }
+                // Check the next day
+                calendar.add(Calendar.DAY_OF_MONTH, 1)
+            }
+            val calendarStart = Calendar.getInstance()
+            calendarStart.set(Calendar.YEAR,startYear )
+            calendarStart.set(Calendar.MONTH, startMonth)
+            calendarStart.set(Calendar.DAY_OF_MONTH, startDay )
+            calendarStart.set(Calendar.HOUR_OF_DAY, startHour )
+            calendarStart.set(Calendar.MINUTE, startMinute)
+            val startTimeInMillis = calendarStart.timeInMillis
 
             setCalendarEvent(
+                context!!,
                 binding.textInputLayoutMedicineName.editText?.text.toString(),
-                mStartTime.time,
-                mEndTime.time,
+                startTimeInMillis,
                 selectedDays
-
             )
         }
-
     }
 
     private fun showTimePicker() {
@@ -109,43 +146,43 @@ class AddMedication : BaseFragment<FragmentAddMedicationBinding>() {
         binding.linearLayoutAddTime?.visibility = View.VISIBLE
 
     }
-
     private fun setCalendarEvent(
+        context: Context,
         title: String,
-        begin: Long,
-        end: Long,
+        startMillis: Long,
         selectedDays: ArrayList<String>
-
     ) {
-        var repeatRule = ""
-        for ((index, day) in selectedDays.withIndex()) {
-            repeatRule += day
-            if (index < selectedDays.size - 1) {
-                repeatRule += ","
-            }
+        val values = ContentValues().apply {
+            put(CalendarContract.Events.TITLE, title)
+            put(CalendarContract.Events.DTSTART, startMillis)
+            put(CalendarContract.Events.DURATION, "P1H")
+            put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
+            put(CalendarContract.Events.CALENDAR_ID, 1)
+            put(CalendarContract.Events.RRULE, "FREQ=WEEKLY;BYDAY=${selectedDays.joinToString(",")};WKST=SU")
+            put(CalendarContract.Events.DESCRIPTION, "Don't forget to take your medicine")
+            put(CalendarContract.Events.ALL_DAY, false)
         }
 
-        val intent = Intent(Intent.ACTION_INSERT).apply {
-            data = CalendarContract.Events.CONTENT_URI
-            putExtra(CalendarContract.Events.TITLE, title)
-            putExtra(CalendarContract.ExtendedProperties.DESCRIPTION, "Don't forget to take your medicine")
-            putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, begin)
-            putExtra(CalendarContract.EXTRA_EVENT_END_TIME, end)
-            putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false)
-            putExtra(
-                CalendarContract.Events.RRULE,
-                "FREQ=WEEKLY;BYDAY=$repeatRule;WKST=SU"
-            )
-        }
-        // Event reminders
-        val reminderMinutes = 10 // Reminder before 10 minutes
-        intent.putExtra(CalendarContract.Reminders.MINUTES, reminderMinutes)
-        intent.putExtra(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT)
+        val eventUri = context.contentResolver.insert(CalendarContract.Events.CONTENT_URI, values)
 
-        if (intent.resolveActivity(requireActivity().packageManager) != null) {
-            startActivity(intent)
+        if (eventUri != null) {
+            val viewEventIntent = Intent(Intent.ACTION_VIEW)
+            viewEventIntent.data = eventUri
+            cleanForm()
+            startActivity(viewEventIntent)
         }
     }
-
-
+    private fun cleanForm(){
+        // clean the form
+        binding.textInputLayoutMedicineName.editText?.setText("")
+        binding.takeMonday.isChecked = false
+        binding.takeTuesday.isChecked = false
+        binding.takeWednesday.isChecked = false
+        binding.takeThursday.isChecked = false
+        binding.takeFriday.isChecked = false
+        binding.takeSaturday.isChecked = false
+        binding.takeSunday.isChecked = false
+        binding.linearLayoutShowTime?.visibility = View.GONE
+        binding.linearLayoutAddTime?.visibility = View.VISIBLE
+    }
 }

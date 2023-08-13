@@ -18,22 +18,22 @@ class CardViewViewModel : BaseViewModel() {
         val list = mutableListOf<Meditation>()
         list.add(
             Meditation(
-            R.drawable.meditation1, "Meditation 1", 100,"Meditation description",
+            R.drawable.meditation1, "Calming Session", 60,"Meditation description",
             R.raw.minute_meditation,"Daily")
         )
         list.add(
             Meditation(
-            R.drawable.meditation2, "Meditation 2", 100,"Meditation description",
+            R.drawable.meditation2, "Morning Meditation", 60,"Meditation description",
             R.raw.minute_meditation,"Daily")
         )
         list.add(
             Meditation(
-            R.drawable.meditation3, "Meditation 3", 300,"Meditation description",
+            R.drawable.meditation3, "Seaside Serenity", 180,"Meditation description",
             R.raw.minute_meditation,"Daily")
         )
         list.add(
             Meditation(
-            R.drawable.meditation4, "Meditation 4", 100,"Meditation description",
+            R.drawable.meditation4, "Whispers of the Nature", 60,"Meditation description",
             R.raw.minute_meditation,"Daily")
         )
         val viewHolderList = list.mapIndexed { index, meditation ->
