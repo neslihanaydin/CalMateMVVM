@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     private val GOOGLE_FIT_PERMISSIONS_REQUEST_CODE = 1
-    private val REQUEST_CALENDAR_PERMISSION = 1
 
 
     private val runningQOrLater =
@@ -137,9 +136,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
         checkPermissionsAndRun(GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
-        checkAndRequestCalendarPermissions()
+
 
     }
 
@@ -222,48 +220,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Check if the app has calendar permissions, and request them if not.
-    private fun checkAndRequestCalendarPermissions() {
-        val readPermission = ContextCompat.checkSelfPermission(
-            this,
-            "android.permission.READ_CALENDAR"
-        )
-        val writePermission = ContextCompat.checkSelfPermission(
-            this,
-            "android.permission.WRITE_CALENDAR"
-        )
 
-        if (readPermission != PackageManager.PERMISSION_GRANTED || writePermission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(
-                    "android.permission.READ_CALENDAR",
-                    "android.permission.WRITE_CALENDAR"
-                ),
-                REQUEST_CALENDAR_PERMISSION
-            )
-        } else {
-            // Permissions are already granted, perform the operation that requires calendar access.
-            // For example, call the function that sets the calendar event.
-        }
-    }
-
-    // Handle permission request results
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CALENDAR_PERMISSION) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission was granted, perform the operation that requires calendar access.
-                // For example, call the function that sets the calendar event.
-            } else {
-                // Permission denied. Handle the case where the user declined the permission request.
-            }
-        }
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
