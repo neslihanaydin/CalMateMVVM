@@ -48,6 +48,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             val editor = sharedPref?.edit()
             editor?.clear()
             editor?.apply()
+
             // navigate to the welcome page
             appViewModel.navigationUnit.navigate(
                 R.id.welcomeFragment,

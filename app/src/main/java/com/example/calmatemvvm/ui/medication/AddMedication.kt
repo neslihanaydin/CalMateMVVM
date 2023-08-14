@@ -3,11 +3,15 @@ package com.example.calmatemvvm.ui.medication
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.calmatemvvm.common.viewModels
 import com.example.calmatemvvm.databinding.FragmentAddMedicationBinding
 import com.example.calmatemvvm.ui.common.BaseFragment
@@ -25,6 +29,9 @@ class AddMedication : BaseFragment<FragmentAddMedicationBinding>() {
     private var selectedHour: Int = 0
     private var selectedMinute: Int = 0
 
+    private val REQUEST_CALENDAR_PERMISSION = 1
+
+
     override val viewModel by viewModels {
         AddMedicationViewModel()
     }
@@ -34,6 +41,7 @@ class AddMedication : BaseFragment<FragmentAddMedicationBinding>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): FragmentAddMedicationBinding {
+        checkAndRequestCalendarPermissions()
         return FragmentAddMedicationBinding.inflate(inflater)
     }
 
@@ -184,5 +192,47 @@ class AddMedication : BaseFragment<FragmentAddMedicationBinding>() {
         binding.takeSunday.isChecked = false
         binding.linearLayoutShowTime?.visibility = View.GONE
         binding.linearLayoutAddTime?.visibility = View.VISIBLE
+    }
+
+    // Check if the app has calendar permissions, and request them if not.
+    private fun checkAndRequestCalendarPermissions() {
+        val readPermission = ContextCompat.checkSelfPermission(
+            context!!,
+            "android.permission.READ_CALENDAR"
+        )
+        val writePermission = ContextCompat.checkSelfPermission(
+            context!!,
+            "android.permission.WRITE_CALENDAR"
+        )
+
+        if (readPermission != PackageManager.PERMISSION_GRANTED || writePermission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                activity!!,
+                arrayOf(
+                    "android.permission.READ_CALENDAR",
+                    "android.permission.WRITE_CALENDAR"
+                ),
+                REQUEST_CALENDAR_PERMISSION
+            )
+        } else {
+            // Permissions are already granted, perform the operation that requires calendar access.
+            // For example, call the function that sets the calendar event.
+        }
+    }
+
+    // Handle permission request results
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CALENDAR_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(context, "Calendar permission granted", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Calendar permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

@@ -31,7 +31,7 @@ class FitnessViewModel(private val appViewModel: AppViewModel) : BaseViewModel()
         val user = appViewModel.getUser()
         val userId = appViewModel.dbHelper.getUserIdByEmail(user!!.email)
         var response = appViewModel.dbHelper.getUserMoveGoal(userId)
-        if (currentSteps >= response) {
+        if (response != 0 && currentSteps >= response) {
             return true
         }
         return false
